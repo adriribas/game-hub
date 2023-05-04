@@ -6,7 +6,7 @@ interface Props {
 }
 
 const GenreContainer = ({ children }: Props) => {
-  return <HStack paddingY="5px">{children}</HStack>;
+  return <HStack paddingY='5px'>{children}</HStack>;
 };
 
 export default GenreContainer;
