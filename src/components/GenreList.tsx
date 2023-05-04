@@ -1,4 +1,4 @@
-import { Button, Image, List, ListItem } from '@chakra-ui/react';
+import { Button, Heading, Image, List, ListItem } from '@chakra-ui/react';
 import useGenres, { Genre } from '../hooks/useGenres';
 import getCroppedImageUrl from '../services/image-url';
 import GenreSkeleton from './GenreSkeleton';
@@ -18,34 +18,44 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   if (error) return null;
 
   return (
-    <List>
-      {isLoading &&
-        skeletons.map(skeleton => (
-          <GenreContainer key={skeleton}>
-            <GenreSkeleton />
-          </GenreContainer>
-        ))}
-      {data.map(genre => (
-        <ListItem key={genre.id}>
-          {
-            <GenreContainer>
-              <Image
-                src={getCroppedImageUrl(genre.image_background)}
-                boxSize='32px'
-                borderRadius={8}
-              />
-              <Button
-                fontSize='lg'
-                variant='link'
-                fontWeight={genre.id === selectedGenre?.id ? 'bold' : 'normal'}
-                onClick={() => onSelectGenre(genre)}>
-                {genre.name}
-              </Button>
+    <>
+      <Heading fontSize='2xl' marginBottom={3}>
+        Genres
+      </Heading>
+      <List>
+        {isLoading &&
+          skeletons.map(skeleton => (
+            <GenreContainer key={skeleton}>
+              <GenreSkeleton />
             </GenreContainer>
-          }
-        </ListItem>
-      ))}
-    </List>
+          ))}
+        {data.map(genre => (
+          <ListItem key={genre.id}>
+            {
+              <GenreContainer>
+                <Image
+                  src={getCroppedImageUrl(genre.image_background)}
+                  objectFit='cover'
+                  boxSize='32px'
+                  borderRadius={8}
+                />
+                <Button
+                  fontSize='lg'
+                  variant='link'
+                  whiteSpace='normal'
+                  textAlign='left'
+                  fontWeight={
+                    genre.id === selectedGenre?.id ? 'bold' : 'normal'
+                  }
+                  onClick={() => onSelectGenre(genre)}>
+                  {genre.name}
+                </Button>
+              </GenreContainer>
+            }
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 
