@@ -14,8 +14,6 @@ export interface Game {
 
 const apiClient = new APIClient<Game>('/games');
 
-const gamesPerPage = 12;
-
 const useGames = (gameQuery: GameQuery) =>
   useInfiniteQuery<FetchResponse<Game>, Error>({
     queryKey: ['games', gameQuery],
@@ -26,13 +24,13 @@ const useGames = (gameQuery: GameQuery) =>
           parent_platforms: gameQuery.platform?.id,
           ordering: gameQuery.sortOrder,
           search: gameQuery.searchText,
-          page: pageParam,
-          page_size: gamesPerPage
+          page: pageParam
         }
       }),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.next ? allPages.length + 1 : undefined;
-    }
+    },
+    staleTime: 24 * 60 * 60 * 1000 // 24h
   });
 
 export default useGames;
