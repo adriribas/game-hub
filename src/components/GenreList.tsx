@@ -1,7 +1,6 @@
 import { Button, Heading, Image, List, ListItem } from '@chakra-ui/react';
 import useGenres, { Genre } from '../hooks/useGenres';
 import getCroppedImageUrl from '../services/image-url';
-import GenreSkeleton from './GenreSkeleton';
 import GenreContainer from './GenreContainer';
 
 interface Props {
@@ -10,10 +9,7 @@ interface Props {
 }
 
 const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
-  const { data, isLoading, error } = useGenres();
-  const skeletons = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
-  ];
+  const { data, error } = useGenres();
 
   if (error) return null;
 
@@ -23,12 +19,6 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
         Genres
       </Heading>
       <List>
-        {isLoading &&
-          skeletons.map(skeleton => (
-            <GenreContainer key={skeleton}>
-              <GenreSkeleton />
-            </GenreContainer>
-          ))}
         {data?.results.map(genre => (
           <ListItem key={genre.id}>
             {
