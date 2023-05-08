@@ -29,7 +29,7 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
               <GenreSkeleton />
             </GenreContainer>
           ))}
-        {data.map(genre => (
+        {data?.results.map(genre => (
           <ListItem key={genre.id}>
             {
               <GenreContainer>
