@@ -16,6 +16,9 @@ const axiosInstance = axios.create({
 export default class APIClient<T> {
   constructor(private endpoint: string) {}
 
+  get = (id: number | string) =>
+    axiosInstance.get<T>(`${this.endpoint}/${id}`).then(res => res.data);
+
   getAll = (config: AxiosRequestConfig) =>
     axiosInstance
       .get<FetchResponse<T>>(this.endpoint, config)
